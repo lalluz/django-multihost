@@ -41,7 +41,7 @@ __docformat__="restructuredtext"
 
 from django.conf import settings
 from django.contrib.sites.models import Site
-from django.db.models.loading import app_cache_ready
+from django.apps import apps
 from django.core.cache import cache
 from multihost import get_current_request
 
@@ -76,7 +76,7 @@ def by_host(host=None, id_only=False, recursion=False):
                 host = request.get_host()
 
     if host:
-        if app_cache_ready():
+        if apps.ready():
             key = 'SITE%s' % (host,)
 
             # try to get the Site out of Django's cache
